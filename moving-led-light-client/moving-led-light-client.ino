@@ -1,6 +1,6 @@
 #include <Adafruit_NeoPixel.h>
 
-#define LED_PIN 5
+#define LED_PIN 15
 #define LED_MAX_SIZE 120
 #define LED_BRIGHTNESS 100
 
@@ -40,7 +40,7 @@ void colorWipeAll(Adafruit_NeoPixel &strip){
     strip.setPixelColor(i, COLOR_BASE);
   }
   strip.show();
-  delay(200);
+  delay(100);
   for(int i = 0; i < LED_MAX_SIZE; i++){
     strip.setPixelColor(i, COLOR_NONE);
   }
@@ -65,21 +65,21 @@ void setup() {
 void loop() {
   if (Serial.available()) {
     String cmd = Serial.readStringUntil('\n');
-    if (cmd == "FORWARD") {
+    if (cmd == "START_FORWARD") {
       colorWipeForward(strip);
-      Serial.println("FORWARD DONE");
+      Serial.println("DONE_FORWARD");
     }
-    else if (cmd == "REVERSE") {
+    else if (cmd == "START_REVERSE") {
       colorWipeReverse(strip);
-      Serial.println("REVERSE DONE");
+      Serial.println("DONE_REVERSE");
     }
-    else if(cmd == "ALL"){
+    else if(cmd == "START_ALL"){
       colorWipeAll(strip);
-      Serial.println("ALL DONE");
+      Serial.println("DONE_ALL");
     }
-    else if(cmd == "CLOSE"){
+    else if(cmd == "START_CLOSE"){
       colorWipeAllBlack(strip);
-      Serial.println("CLOSE DONE");
+      Serial.println("DONE_CLOSE");
     }
   }
 }
